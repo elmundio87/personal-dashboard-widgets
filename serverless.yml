@@ -1,0 +1,180 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: elmundio87-widgets
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: azure
+  location: West Europe
+
+plugins:
+  - serverless-azure-functions
+
+functions:
+  psforgepr:
+    handler: handler.psforgepr
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  tfvalidatepr:
+    handler: handler.tfvalidatepr
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  thanks:
+    handler: handler.thanks
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  hourslogged:
+    handler: handler.hourslogged
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res   
+  incidents:
+    handler: handler.incidents
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  dogdesk:
+    handler: handler.dogdesk
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  mydogdesk:
+    handler: handler.mydogdesk
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res      
+  ticketsinactive:
+    handler: handler.ticketsinactive
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  ticketsinfeedback:
+    handler: handler.ticketsinfeedback
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  betterworks:
+    handler: handler.betterworks
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res  
+  widget:
+    handler: handler.widget
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  jsoninput:
+    handler: handler.jsoninput
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  linuxupdates:
+    handler: handler.linuxupdates
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  windowsupdates:
+    handler: handler.windowsupdates
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  dogrecruit:
+    handler: handler.dogrecruit
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+
+
+
