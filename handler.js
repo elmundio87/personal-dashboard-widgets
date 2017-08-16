@@ -751,7 +751,7 @@ module.exports.linuxupdates = function (context, input) {
     const MsRest = require('ms-rest-azure');
     const OperationalInsightsManagement = require("azure-arm-operationalinsights");
 
-    var widget = new Widget("Linux", null, "servers need updating");
+    var widget = new Widget("Linux", null, "servers to update");
 
     var callback = function(err,result){
         try{
@@ -788,7 +788,7 @@ module.exports.windowsupdates = function (context, input) {
     const MsRest = require('ms-rest-azure');
     const OperationalInsightsManagement = require("azure-arm-operationalinsights");
 
-    var widget = new Widget("Windows", null, "servers need updating");
+    var widget = new Widget("Windows", null, "servers to update");
 
     var callback = function(err,result){
         try{
