@@ -751,7 +751,7 @@ module.exports.linuxupdates = function (context, input) {
     const MsRest = require('ms-rest-azure');
     const OperationalInsightsManagement = require("azure-arm-operationalinsights");
 
-    var widget = new Widget("Linux", null, "All Updates");
+    var widget = new Widget("Linux", null, "servers need updating");
 
     var callback = function(err,result){
         try{
@@ -773,7 +773,7 @@ module.exports.linuxupdates = function (context, input) {
         MsRest.loginWithServicePrincipalSecret(azure_config.azureServicePrincipalClientId, azure_config.azureServicePrincipalPassword, azure_config.azureServicePrincipalTenantId).then((credentials) => {
             return new OperationalInsightsManagement(credentials, azure_config.azureSubId);
         }).then((client) => {
-            return client.savedSearches._getResults("mms-weu","elmundio87","6f309c95-d3aa-417f-89ed-3749dae6257f", callback)
+            return client.savedSearches._getResults("mms-weu","elmundio87","db07e739-cafa-4b95-a9d4-75a1f065793b", callback)
         })
     }catch(e){
         context.log(e)
@@ -788,7 +788,7 @@ module.exports.windowsupdates = function (context, input) {
     const MsRest = require('ms-rest-azure');
     const OperationalInsightsManagement = require("azure-arm-operationalinsights");
 
-    var widget = new Widget("Windows", null, "Critical Updates");
+    var widget = new Widget("Windows", null, "servers need updating");
 
     var callback = function(err,result){
         try{
@@ -810,7 +810,7 @@ module.exports.windowsupdates = function (context, input) {
         MsRest.loginWithServicePrincipalSecret(azure_config.azureServicePrincipalClientId, azure_config.azureServicePrincipalPassword, azure_config.azureServicePrincipalTenantId).then((credentials) => {
             return new OperationalInsightsManagement(credentials, azure_config.azureSubId);
         }).then((client) => {
-            return client.savedSearches._getResults("mms-weu","elmundio87","6dd16f51-9010-488e-b4f3-6ea40c1f084f", callback)
+            return client.savedSearches._getResults("mms-weu","elmundio87","71e3da85-8fd8-410a-a21f-87f72fbdabb6", callback)
         })
     }catch(e){
         context.log(e)
