@@ -201,6 +201,14 @@ var betterworks_options = {
     "UserID":"#{betterworks_UserID}#"
 }
 
+var azure_config = {
+    "azureServicePrincipalClientId": "#{AZURESERVICEPRINCIPALCLIENTID}#",
+    "azureServicePrincipalPassword": "#{AZURESERVICEPRINCIPALPASSWORD}#",
+    "azureServicePrincipalTenantId": "#{AZURESERVICEPRINCIPALTENANTID}#",
+    "azureSubId": "#{AZURESUBID}#"
+}
+
+
 var dateDiffInDays = function(a, b) {
     var _MS_PER_DAY = 1000 * 60 * 60 * 24;
     // Discard the time and time-zone information.
@@ -740,13 +748,14 @@ module.exports.linuxupdates = function (context, input) {
 
     context.log('JavaScript HTTP trigger function processed a request.');
 
+    const Azure = require('azure');
+    const MsRest = require('ms-rest-azure');
+    const OperationalInsightsManagement = require("azure-arm-operationalinsights");
+
     var widget = new Widget("Linux", null, "All Updates");
 
-    var file = 'D:/HOME/linuxupdates.json'
-    fs.readFile(file, function (err, data) {
-        if (err) throw err;
-        widget.value = JSON.parse(data).ResultCount.split(" ")[0]
-        
+    var callback = function(err,result){
+        widget.value = result.metadata.total
         context.res = {
             body: widget,
             headers: {
@@ -754,7 +763,13 @@ module.exports.linuxupdates = function (context, input) {
             }
         };
         context.done();
-    });
+    }
+
+    MsRest.loginWithServicePrincipalSecret(azure_config.azureServicePrincipalClientId, azure_config.azureServicePrincipalPassword, azure_config.azureServicePrincipalTenantId).then((credentials) => {
+        return new OperationalInsightsManagement(credentials, azure_config.azureSubId);
+    }).then((client) => {
+        return client.savedSearches._getResults("mms-weu","elmundio87","6f309c95-d3aa-417f-89ed-3749dae6257f", callback)
+    })
 
 };
 
