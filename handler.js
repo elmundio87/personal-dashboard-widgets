@@ -755,21 +755,32 @@ module.exports.linuxupdates = function (context, input) {
     var widget = new Widget("Linux", null, "All Updates");
 
     var callback = function(err,result){
-        widget.value = result.metadata.total
-        context.res = {
-            body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        context.done();
+        try{
+            widget.value = result.metadata.total
+            context.res = {
+                body: widget,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            context.done();
+        }catch(e){
+            context.log(e)
+        }
+
     }
 
-    MsRest.loginWithServicePrincipalSecret(azure_config.azureServicePrincipalClientId, azure_config.azureServicePrincipalPassword, azure_config.azureServicePrincipalTenantId).then((credentials) => {
-        return new OperationalInsightsManagement(credentials, azure_config.azureSubId);
-    }).then((client) => {
-        return client.savedSearches._getResults("mms-weu","elmundio87","6f309c95-d3aa-417f-89ed-3749dae6257f", callback)
-    })
+    try{
+        MsRest.loginWithServicePrincipalSecret(azure_config.azureServicePrincipalClientId, azure_config.azureServicePrincipalPassword, azure_config.azureServicePrincipalTenantId).then((credentials) => {
+            return new OperationalInsightsManagement(credentials, azure_config.azureSubId);
+        }).then((client) => {
+            return client.savedSearches._getResults("mms-weu","elmundio87","6f309c95-d3aa-417f-89ed-3749dae6257f", callback)
+        })
+    }catch(e){
+        context.log(e)
+    }
+
+
 
 };
 
