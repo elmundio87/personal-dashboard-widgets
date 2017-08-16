@@ -849,7 +849,7 @@ module.exports.darksky = function (context) {
 
         context.log("Received DarkSky data")
 
-        widget.value = icons[response.currently.icon]
+        widget.value = response.currently.icon
 
         context.res = {
             body: widget,
