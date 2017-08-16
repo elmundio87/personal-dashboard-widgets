@@ -779,32 +779,41 @@ module.exports.linuxupdates = function (context, input) {
         context.log(e)
     }
 
-
-
 };
 
 module.exports.windowsupdates = function (context, input) {
 
     context.log('JavaScript HTTP trigger function processed a request.');
+    
+    const MsRest = require('ms-rest-azure');
+    const OperationalInsightsManagement = require("azure-arm-operationalinsights");
 
     var widget = new Widget("Windows", null, "Critical Updates");
 
-    var file = 'D:/HOME/windowsupdates.json'
-    fs.readFile(file, function (err, data) {
-        if (err) throw err;
-        widget.value = JSON.parse(data).ResultCount.split(" ")[0]
-
-        if(widget.value > 0){
-            widget.status = "critical"
+    var callback = function(err,result){
+        try{
+            widget.value = result.metadata.total
+            context.res = {
+                body: widget,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            context.done();
+        }catch(e){
+            context.log(e)
         }
-        
-        context.res = {
-            body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        context.done();
-    });
+
+    }
+
+    try{
+        MsRest.loginWithServicePrincipalSecret(azure_config.azureServicePrincipalClientId, azure_config.azureServicePrincipalPassword, azure_config.azureServicePrincipalTenantId).then((credentials) => {
+            return new OperationalInsightsManagement(credentials, azure_config.azureSubId);
+        }).then((client) => {
+            return client.savedSearches._getResults("mms-weu","elmundio87","6dd16f51-9010-488e-b4f3-6ea40c1f084f", callback)
+        })
+    }catch(e){
+        context.log(e)
+    }
 
 };
