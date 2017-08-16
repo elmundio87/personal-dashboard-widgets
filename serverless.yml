@@ -19,7 +19,7 @@ service: elmundio87-widgets
 
 provider:
   name: azure
-  location: West Europe
+  location: North Europe
 
 plugins:
   - serverless-azure-functions
