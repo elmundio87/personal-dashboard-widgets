@@ -825,7 +825,11 @@ module.exports.darksky = function (context) {
 
     let fetch = require('node-fetch');
 
-    var widget = new Widget("Weather", null, "Cardiff");
+    var widget = new Widget("Weather", null, null);
+
+    var toCelsius = function(f) {
+        return Math.round((5/9) * (f-32));
+    }
 
     var icons =  { 
                     "clear-day": "\u2600\uFE0F", 
@@ -850,6 +854,7 @@ module.exports.darksky = function (context) {
         context.log("Received DarkSky data")
 
         widget.value = icons[response.currently.icon]
+        widget.subtitle = "Cardiff (" + toCelsius(response.currently.apparentTemperature) + "°)"
 
         context.res = {
             body: widget,
