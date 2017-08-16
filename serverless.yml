@@ -175,6 +175,16 @@ functions:
         x-azure-settings:
           diections: out
           name: res
+  darksky:
+    handler: handler.darksky
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
 
 
 

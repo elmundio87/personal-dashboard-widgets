@@ -187,7 +187,8 @@ var jira_options = {
 var app_config = {
     "pagerdutyAPI": "#{pagerdutyAPI}#",
     "oms_workspace": "#{oms_workspace}",
-    "oms_sharedkey": "#{oms_sharedkey}"
+    "oms_sharedkey": "#{oms_sharedkey}",
+    "darksky_APIKey": "#{DARKSKY_APIKEY}"
 }
 
 var peopleHR_options = {
@@ -815,5 +816,48 @@ module.exports.windowsupdates = function (context, input) {
     }catch(e){
         context.log(e)
     }
+
+};
+
+module.exports.darksky = function (context) {
+    
+    context.log('JavaScript HTTP trigger function processed a request.');
+
+    let fetch = require('node-fetch');
+
+    var widget = new Widget("Weather", null, "Cardiff");
+
+    var icons =  { 
+                    "clear-day": "☀️", 
+                    "clear-night": "🌕", 
+                    "rain": "🌧️", 
+                    "snow": "❄️", 
+                    "sleet": "🌨️", 
+                    "wind": "🌬️",
+                    "fog": "🌁",
+                    "cloudy": "☁️",
+                    "partly-cloudy-day": "🌤️",
+                    "partly-cloudy-night": "🌥️"
+                }
+
+    fetch('https://api.darksky.net/forecast/' + app_config.darksky_APIKey + '/51.483075,-3.1796354', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    }).then(response => {
+        return response.json();
+    }).then(response => {
+
+        context.log("Received DarkSky data")
+
+        widget.value = icons[response.currently.icon]
+
+        context.res = {
+            body: widget,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        context.done();
+    });
 
 };
