@@ -748,7 +748,6 @@ module.exports.linuxupdates = function (context, input) {
 
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    const Azure = require('azure');
     const MsRest = require('ms-rest-azure');
     const OperationalInsightsManagement = require("azure-arm-operationalinsights");
 
