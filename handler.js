@@ -833,7 +833,7 @@ module.exports.darksky = function (context) {
                     "rain": "🌧️", 
                     "snow": "❄️", 
                     "sleet": "🌨️", 
-                    "wind": "🌬️",
+                    "wind": "\uD83C\uDFC8",
                     "fog": "🌁",
                     "cloudy": "☁️",
                     "partly-cloudy-day": "🌤️",
