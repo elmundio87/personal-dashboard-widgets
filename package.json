@@ -7,10 +7,8 @@
     "azure",
     "serverless"
   ],
-  "devDependencies": {
-    "serverless-azure-functions": "^0.4.0"
-  },
   "dependencies": {
+    "serverless-azure-functions": "^0.4.0",
     "azure": "^2.0.0-preview",
     "github": "^9.2.0",
     "jira-client": "^6.4.0",
