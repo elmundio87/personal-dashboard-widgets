@@ -186,9 +186,9 @@ var jira_options = {
 
 var app_config = {
     "pagerdutyAPI": "#{pagerdutyAPI}#",
-    "oms_workspace": "#{oms_workspace}",
-    "oms_sharedkey": "#{oms_sharedkey}",
-    "darksky_APIKey": "#{darksky_APIKey}"
+    "oms_workspace": "#{oms_workspace}#",
+    "oms_sharedkey": "#{oms_sharedkey}#",
+    "darksky_APIKey": "#{darksky_APIKey}#"
 }
 
 var peopleHR_options = {
