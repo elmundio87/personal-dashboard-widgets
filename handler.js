@@ -854,7 +854,7 @@ module.exports.darksky = function (context) {
         context.log("Received DarkSky data")
 
         widget.value = icons[response.currently.icon]
-        widget.subtitle = "Cardiff (" + toCelsius(response.currently.apparentTemperature) + "°)"
+        widget.subtitle = "Cardiff (" + toCelsius(response.currently.apparentTemperature) + "\u00B0)"
 
         context.res = {
             body: widget,
