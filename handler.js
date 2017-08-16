@@ -830,10 +830,10 @@ module.exports.darksky = function (context) {
     var icons =  { 
                     "clear-day": "☀️", 
                     "clear-night": "🌕", 
-                    "rain": "🌧️", 
+                    "rain": "\uD83C\uDF27", 
                     "snow": "❄️", 
                     "sleet": "🌨️", 
-                    "wind": "\uD83C\uDFC8",
+                    "wind": "\uD83C\uDF2C",
                     "fog": "🌁",
                     "cloudy": "☁️",
                     "partly-cloudy-day": "🌤️",
