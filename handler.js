@@ -828,16 +828,16 @@ module.exports.darksky = function (context) {
     var widget = new Widget("Weather", null, "Cardiff");
 
     var icons =  { 
-                    "clear-day": "☀️", 
-                    "clear-night": "🌕", 
+                    "clear-day": "\u2600\uFE0F", 
+                    "clear-night": "\uD83C\uDF15", 
                     "rain": "\uD83C\uDF27", 
-                    "snow": "❄️", 
-                    "sleet": "🌨️", 
+                    "snow": "\u2744\uFE0F", 
+                    "sleet": "\uD83C\uDF28", 
                     "wind": "\uD83C\uDF2C",
-                    "fog": "🌁",
-                    "cloudy": "☁️",
-                    "partly-cloudy-day": "🌤️",
-                    "partly-cloudy-night": "🌥️"
+                    "fog": "\uD83C\uDF01",
+                    "cloudy": "\u2601\uFE0F",
+                    "partly-cloudy-day": "\uD83C\uDF24",
+                    "partly-cloudy-night": "\uD83C\uDF25"
                 }
 
     fetch('https://api.darksky.net/forecast/' + app_config.darksky_APIKey + '/51.483075,-3.1796354', {
