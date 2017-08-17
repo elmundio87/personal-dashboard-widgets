@@ -825,24 +825,11 @@ module.exports.darksky = function (context) {
 
     let fetch = require('node-fetch');
 
-    var widget = new Widget("Weather", null, null);
+    var widget = new Widget("Is it raining?", null, null);
 
     var toCelsius = function(f) {
         return Math.round((5/9) * (f-32));
     }
-
-    var icons =  { 
-                    "clear-day": "\u2600\uFE0F", 
-                    "clear-night": "\uD83C\uDF15", 
-                    "rain": "\uD83C\uDF27", 
-                    "snow": "\u2744\uFE0F", 
-                    "sleet": "\uD83C\uDF28", 
-                    "wind": "\uD83C\uDF2C",
-                    "fog": "\uD83C\uDF01",
-                    "cloudy": "\u2601\uFE0F",
-                    "partly-cloudy-day": "\uD83C\uDF24",
-                    "partly-cloudy-night": "\uD83C\uDF25"
-                }
 
     fetch('https://api.darksky.net/forecast/' + app_config.darksky_APIKey + '/51.483075,-3.1796354', {
         method: 'GET',
@@ -853,7 +840,7 @@ module.exports.darksky = function (context) {
 
         context.log("Received DarkSky data")
 
-        widget.value = icons[response.currently.icon]
+        widget.value = (response.currently.icon == "rain" ? "Yes" : "No");
         widget.subtitle = "Cardiff (" + toCelsius(response.currently.apparentTemperature) + "\u00B0)"
 
         context.res = {
