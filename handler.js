@@ -24,6 +24,10 @@ var html = `
                 background-color: grey;
             }
 
+            .rain {
+                background-color: skyblue;
+            }
+
             .normal {
                  background-color: white;
             }
@@ -840,7 +844,10 @@ module.exports.darksky = function (context) {
 
         context.log("Received DarkSky data")
 
-        widget.value = (response.currently.icon == "rain" ? "Yes" : "No");
+        var isRaining = (response.currently.icon === "rain")
+
+        widget.value = (isRaining ? "Yes" : "No");
+        widget.status = (isRaining ? "rain" : "normal")
         widget.subtitle = "Cardiff (" + toCelsius(response.currently.apparentTemperature) + "\u00B0)"
 
         context.res = {
