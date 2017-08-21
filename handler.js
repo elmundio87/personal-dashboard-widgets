@@ -476,7 +476,7 @@ module.exports.incidents = function (context) {
 
     var widget = new Widget("Incidents", null, null);
 
-    jira.searchJira('type = "Incident" and statusCategory != "Done"').then(function(result) { 
+    jira.searchJira('type = "Incident" and statusCategory != "Done" and status != "Feedback"').then(function(result) { 
 
         if(result.issues.length > 0){
             widget.status = "critical"
