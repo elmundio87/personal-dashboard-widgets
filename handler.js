@@ -296,7 +296,7 @@ var thanksDateIsInRange = function(thanksDate){
         upperRange = thisMonthsDogGathering
     }
 
-    if((toDateYYMMDD(thanksDate) <= upperRange && toDateYYMMDD(thanksDate) > lowerRange)){
+    if((toDate(thanksDate) <= upperRange && toDate(thanksDate) > lowerRange)){
         return true
     }
     return false
