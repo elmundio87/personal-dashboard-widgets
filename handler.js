@@ -557,7 +557,7 @@ module.exports.mydogdesk = function (context) {
     
     var widget = new Widget("DOGDESK", null, "Created by me");
 
-    jira.searchJira('reporter = currentUser() and project = DOGDESK and type != "Licence"  and (status = "Awaiting Approval" or status = "Waiting for support" or status = "To Do")').then(function(result) { 
+    jira.searchJira('reporter = currentUser() and project = DOGDESK and type != "Licence"  and (status = "Awaiting Approval" or status = "Waiting for support" or status = "To Do" or status = "Waiting for Customer")').then(function(result) { 
         
         widget.type = "dial"
         widget.dial = {
