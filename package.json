@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "azure-arm-operationalinsights": "^1.0.0-preview",
+    "eslint": "^4.11.0",
     "github": "^9.2.0",
     "jira-client": "^6.4.0",
     "mustache": "^2.3.0",
