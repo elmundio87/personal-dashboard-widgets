@@ -145,26 +145,6 @@ functions:
         x-azure-settings:
           diections: out
           name: res
-  linuxupdates:
-    handler: handler.linuxupdates
-    events:
-      - http: true
-        x-azure-settings:
-          authLevel : admin
-      - http: true
-        x-azure-settings:
-          diections: out
-          name: res
-  windowsupdates:
-    handler: handler.windowsupdates
-    events:
-      - http: true
-        x-azure-settings:
-          authLevel : admin
-      - http: true
-        x-azure-settings:
-          diections: out
-          name: res
   dogrecruit:
     handler: handler.dogrecruit
     events:
