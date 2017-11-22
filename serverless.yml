@@ -24,11 +24,6 @@ provider:
 plugins:
   - serverless-azure-functions
 
-package:
-  include:
-    - handler.js
-    - index.html
-
 functions:
   psforgepr:
     handler: handler.psforgepr
