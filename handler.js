@@ -194,6 +194,7 @@ module.exports.widget = function(context, input) {
         html = err;
       }
       html = data;
+      console.log(html);
       context.res = {
         body: html,
         headers: {
