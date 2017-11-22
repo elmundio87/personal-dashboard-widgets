@@ -29,15 +29,15 @@ var html = `
             }
 
             .normal {
-                 background-color: white;
+                background-color: white;
             }
 
             .warning {
-                 background-color: yellow;
+                background-color: yellow;
             }
 
             .critical {
-                 background-color: red;
+                background-color: red;
             }
 
             #title {
@@ -133,7 +133,7 @@ var html = `
                             "width": "144px",
                             "height": "100px"
                         });
-         
+        
                         $("#value").text("")
                         dial = new JustGage({
                             id: "value",
@@ -345,6 +345,14 @@ var saveWidget = function(name, widget) {
     }); 
 }
 
+var headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Credentials': 'true',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type'
+}
+
 class Widget {
   constructor(title, value, subtitle) {
     this.title = title;
@@ -385,9 +393,7 @@ module.exports.psforgepr = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
 
         context.done();
@@ -410,9 +416,7 @@ module.exports.tfvalidatepr = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
 
         context.done();
@@ -442,9 +446,7 @@ module.exports.thanks = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
         context.done();
     });
@@ -460,9 +462,7 @@ module.exports.hourslogged = function (context) {
 
     context.res = {
         body: widget,
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        headers: headers
     };
     context.done();
 };
@@ -508,9 +508,7 @@ module.exports.incidents = function (context) {
 
             context.res = {
                 body: widget,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: headers
             };
            
             context.done();
@@ -540,9 +538,7 @@ module.exports.dogdesk = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
 
         context.done();
@@ -569,9 +565,7 @@ module.exports.mydogdesk = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
         context.done();
     })
@@ -596,9 +590,7 @@ module.exports.ticketsinactive = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
         context.done();
     })
@@ -623,9 +615,7 @@ module.exports.ticketsinfeedback = function (context) {
     
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
 
         context.done();
@@ -651,9 +641,7 @@ module.exports.dogrecruit = function (context) {
     
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
 
         context.done();
@@ -716,9 +704,7 @@ module.exports.betterworks = function (context) {
       
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
 
         context.done();
@@ -740,9 +726,7 @@ module.exports.jsoninput = function (context, input) {
 
     context.res = {
         body: "",
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        headers: headers
     };
 
     context.done();
@@ -763,9 +747,7 @@ module.exports.linuxupdates = function (context, input) {
             widget.value = result.metadata.total
             context.res = {
                 body: widget,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: headers
             };
             context.done();
         }catch(e){
@@ -800,9 +782,7 @@ module.exports.windowsupdates = function (context, input) {
             widget.value = result.metadata.total
             context.res = {
                 body: widget,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: headers
             };
             context.done();
         }catch(e){
@@ -852,9 +832,7 @@ module.exports.darksky = function (context) {
 
         context.res = {
             body: widget,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         };
         context.done();
     });
