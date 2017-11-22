@@ -185,6 +185,16 @@ functions:
         x-azure-settings:
           diections: out
           name: res
+  index:
+    handler: index.index
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
 
 
 
