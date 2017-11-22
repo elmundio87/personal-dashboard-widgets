@@ -189,10 +189,14 @@ class Widget {
 module.exports.widget = function(context, input) {
     let html = '';
 
-    fs.readFile('../index/index.js', 'utf8', function(err, data) {
+    fs.readFile(path.resolve(__dirname, '..', 'index/index.js'), 'utf8', function(err, data) {
       if (err) {
         html = err;
       }
+
+      context.log(__dirname);
+      context.log(path.resolve(__dirname, '..', 'index/index.js'));
+
       html = data;
       context.log(html);
       context.res = {
