@@ -4,6 +4,7 @@ let fetch = require('node-fetch');
 let JiraApi = require('jira-client');
 let GitHubApi = require('github');
 let fs = require('fs');
+let path = require('path');
 
 Array.prototype.sum = Array.prototype.sum || function() {
   return this.reduce(function(sum, a) {
@@ -188,7 +189,7 @@ class Widget {
 
 module.exports.widget = function(context, input) {
     let html = '';
-
+    
     fs.readFile(path.resolve(__dirname, '..', 'index/index.js'), 'utf8', function(err, data) {
       if (err) {
         html = err;
