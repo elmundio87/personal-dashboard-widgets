@@ -8,6 +8,7 @@
     "serverless"
   ],
   "devDependencies": {
+    "eslint-config-google": "^0.9.1",
     "serverless-azure-functions": "^0.4.0"
   },
   "dependencies": {
