@@ -77,7 +77,7 @@
               return match && decodeURIComponent(match[1].replace(/\\+/g, ' '));
           }
 
-          var url = window.location.protocol + "//" + getParameterByName("host") + "/api/" + getParameterByName("name") + "?&code=" + getParameterByName("code") 
+          var url = window.location.protocol + "//" + window.location.host + "/api/" + getParameterByName("name") + "?&code=" + getParameterByName("code") 
           var callAjax = function(url, callback){
               var xmlhttp;
               // compatible with IE7+, Firefox, Chrome, Opera, Safari
