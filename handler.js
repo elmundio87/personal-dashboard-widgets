@@ -385,7 +385,7 @@ module.exports.ticketsinactive = function(context) {
     let jira = new JiraApi(JiraOptions);
     let widget = new Widget('Active or Testing', null, 'Jira Tickets');
 
-    jira.searchJira('assignee = CurrentUser() and (status = "Active" OR  status = "Testing" OR status = "In-Progress")').then(function(result) {
+    jira.searchJira('assignee = CurrentUser() and (statusCategory = "In Progress" and status != "Feedback")').then(function(result) {
         widget.type = 'dial';
         widget.dial = {
             'min': 0,
