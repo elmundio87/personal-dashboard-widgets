@@ -92,9 +92,9 @@
                   }
 
                   if(greyout > 2){
-                    $(".widget").addClass("inactive")
+                    $("body").addClass("inactive")
                   }else{
-                    $(".widget").removeClass("inactive")
+                    $("body").removeClass("inactive")
                   }
               }
               xmlhttp.open("GET", url, true);
@@ -164,7 +164,7 @@
           }
 
           callAjax(url, callback)
-          setInterval(function(){ callAjax(url, callback) }, 30000);
+          setInterval(function(){ callAjax(url, callback) }, 300000);
 
       </script>
   </body>
