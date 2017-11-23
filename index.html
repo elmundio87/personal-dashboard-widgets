@@ -65,6 +65,7 @@
       <script>
 
           var dial = new Object
+          var greyout = 0
 
           var refresh = function() {
               callAjax(url, callback);
@@ -84,7 +85,16 @@
               xmlhttp = new XMLHttpRequest();
               xmlhttp.onreadystatechange = function(){
                   if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                      callback(xmlhttp.responseText);
+                    greyout = 0
+                    callback(xmlhttp.responseText);
+                  }else{
+                    greyout++
+                  }
+
+                  if(greyout > 2){
+                    $(".widget").addClass("inactive")
+                  }else{
+                    $(".widget").removeClass("inactive")
                   }
               }
               xmlhttp.open("GET", url, true);
@@ -154,7 +164,7 @@
           }
 
           callAjax(url, callback)
-          setInterval(function(){ callAjax(url, callback) }, 300000);
+          setInterval(function(){ callAjax(url, callback) }, 30000);
 
       </script>
   </body>
