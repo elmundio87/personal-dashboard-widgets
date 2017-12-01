@@ -434,7 +434,7 @@ module.exports.dogrecruit = function(context) {
     let jira = new JiraApi(JiraOptions);
     let widget = new Widget('Recruitment', null, 'CVs to review');
 
-    jira.searchJira('project = DOGRECRUIT and (status = "Under Review" OR status = "Open") and ("Epic Link" = DOGRECRUIT-247 or assignee = CurrentUser())').then(function(result) {
+    jira.searchJira('project = DOGRECRUIT and (status = "Under Review" OR status = "Open") and ("Epic Link" = "ASOS - Windows DevOps Engineer" or assignee = CurrentUser())').then(function(result) {
         widget.type = 'dial';
         widget.dial = {
             'min': 0,
