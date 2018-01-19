@@ -140,6 +140,12 @@ let timestamp = function() {
     return d.toLocaleTimeString('en-GB', {timeZone: 'Europe/London'});
 };
 
+let epochToDate = function(epoch) {
+  let d = new Date(0);
+  d.setSeconds(epoch);
+  return d;
+};
+
 /**
  * Class that models the data consumed by the dashboard widgets
  */
@@ -442,6 +448,7 @@ module.exports.betterworks = function(context) {
       return response.json();
     }).then((response) => {
       let myMilestones = [];
+      let unfinishedMilestones = [];
       let progress = 0;
       let lastCheckedIn = 'N/A';
       let avgProgress = '100';
@@ -468,20 +475,17 @@ module.exports.betterworks = function(context) {
         avgProgress = (progress / myMilestones.length) * 100;
       }
 
-      value = avgProgress + '%';
-      subtitle = lastCheckedIn + ' days';
+      widget.value = avgProgress + '%';
+      widget.subtitle = lastCheckedIn + ' days';
 
-      widget.value = value;
-        widget.subtitle = subtitle;
+      context.res = {
+          body: widget,
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      };
 
-        context.res = {
-            body: widget,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        context.done();
+      context.done();
     });
 };
 
