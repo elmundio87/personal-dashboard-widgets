@@ -62,32 +62,6 @@ let toDate = function(dateStr, separator) {
     return new Date(parts[2], parts[1] - 1, parts[0]);
 };
 
-let toDateYYMMDD = function(dateStr, separator) {
-    if (typeof separator == 'undefined') {
-      separator = '/';
-    };
-
-    let parts = dateStr.split(separator);
-    return new Date(parts[0], parts[1] - 1, parts[2]);
-};
-
-let betterworksMilestonesActive = function(result) {
-    let now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
-    let upperRange = toDateYYMMDD(result['end'], '-');
-    let lowerRange = toDateYYMMDD(result['start'], '-');
-
-    return (now > lowerRange && now <= upperRange);
-};
-
-let betterworksMilestonesUnfinished = function(result) {
-    let now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
-    let upperRange = toDateYYMMDD(result['end'], '-');
-    let lowerRange = toDateYYMMDD(result['start'], '-');
-
-    return (now > lowerRange && now <= upperRange && result.measurement.progress < 1);
-};
-
-
 let getDogGathering = function(month, year) {
     let lastdayofmonth = new Date(year, month, 0);
     let THURSDAY = 4;
@@ -249,7 +223,6 @@ module.exports.tfvalidatepr = function(context) {
 module.exports.thanks = function(context) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    let fetch = require('node-fetch');
     let widget = new Widget('Thanks Badges', null, null);
 
     fetch('https://api.peoplehr.net/Query', {
@@ -291,7 +264,6 @@ module.exports.incidents = function(context) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
     let jira = new JiraApi(JiraOptions);
-    let fetch = require('node-fetch');
     let widget = new Widget('Incidents', null, null);
 
     jira.searchJira('type = "Incident" and statusCategory != "Done" and status != "Feedback"').then(function(result) {
@@ -459,47 +431,47 @@ module.exports.betterworks = function(context) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
     let widget = new Widget('Betterworks', null, null);
-    let fetch = require('node-fetch');
 
-    fetch('https://app.betterworks.com/api/beta/goals/filter/?owner=' + BetterWorksOptions.UserID, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'APIToken ' + BetterWorksOptions.APIKey,
-        },
+    fetch('https://app.betterworks.com/api/beta/goals/filter/?date_range=today&owner=' + BetterWorksOptions.UserID, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'APIToken ' + BetterWorksOptions.APIKey,
+      },
     }).then((response) => {
-        return response.json();
+      return response.json();
     }).then((response) => {
-        let currentGoals = response.results.filter(betterworksMilestonesActive);
-        let unfinishedGoals = response.results.filter(betterworksMilestonesUnfinished);
+      let myMilestones = [];
+      let progress = 0;
+      let lastCheckedIn = 'N/A';
+      let avgProgress = '100';
 
-        let subtitle = '0 days';
-        let value = 'N/A';
+      response.results.forEach((result) => {
+        myMilestones = myMilestones.concat(result.children
+          .filter((milestone) => (milestone.owner.user_id == BetterWorksOptions.UserID))
+          .filter((milestone) => (milestone.is_key_result))
+        );
+      });
 
-        if (unfinishedGoals.length > 0) {
-            let ProgressArray = currentGoals.map(function(x) {
-                return x.measurement.progress;
-            });
+      if (myMilestones.length > 0 ) {
+        unfinishedMilestones = myMilestones.filter((milestone) => (milestone.measurement.progress < 1));
+        unfinishedMilestones = unfinishedMilestones.sort(function(a, b) {
+          return parseFloat(b.updated) - parseFloat(a.updated);
+        });
 
-            let progress = Math.round(ProgressArray.average() * 100 );
+        lastCheckedIn = dateDiffInDays(epochToDate(unfinishedMilestones[0].updated), new Date());
 
-            unfinishedGoals.sort(function(a, b) {
-                return parseFloat(a.LastCheckedIn) - parseFloat(b.LastCheckedIn);
-            });
+        myMilestones.forEach((milestone) => {
+          progress += milestone.measurement.progress;
+        });
 
-            let now = new Date();
-            let LastCheckedIn = new Date(unfinishedGoals[0].LastCheckedIn * 1000);
+        avgProgress = (progress / myMilestones.length) * 100;
+      }
 
-            let subtitle = dateDiffInDays(LastCheckedIn, now);
-            if (subtitle == 1) {
-                subtitle = subtitle + ' day since checkin';
-            } else {
-                subtitle = subtitle + ' days since checkin';
-            }
-            value = progress + '%';
-        }
+      value = avgProgress + '%';
+      subtitle = lastCheckedIn + ' days';
 
-        widget.value = value;
+      widget.value = value;
         widget.subtitle = subtitle;
 
         context.res = {
