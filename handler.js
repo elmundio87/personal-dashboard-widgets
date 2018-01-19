@@ -450,7 +450,7 @@ module.exports.betterworks = function(context) {
       let myMilestones = [];
       let unfinishedMilestones = [];
       let progress = 0;
-      let lastCheckedIn = 'N/A';
+      let lastCheckedIn = 'Nothing to update';
       let avgProgress = '100';
 
       response.results.forEach((result) => {
@@ -476,7 +476,18 @@ module.exports.betterworks = function(context) {
       }
 
       widget.value = avgProgress + '%';
-      widget.subtitle = lastCheckedIn + ' days';
+      if (lastCheckedIn == 0) {
+        widget.subtitle = 'You last checked in today!';
+      }
+      widget.subtitle = lastCheckedIn + ' days since checkin';
+
+      if (lastCheckedIn >= 3) {
+        widget.status = 'warning';
+      }
+
+      if (lastCheckedIn >= 7) {
+        widget.status = 'critical';
+      }
 
       context.res = {
           body: widget,
