@@ -565,7 +565,7 @@ module.exports.darksky = function(context) {
 
 module.exports.azurebilling = function(context) {
   context.log('JavaScript HTTP trigger function processed a request.');
-  let totalCredit = 15.00;
+  let totalCredit = 115.00;
 
   let widget = new Widget('Azure Bill Estimate', null, null);
   widget.refresh_timer = 3600;
@@ -592,7 +592,7 @@ module.exports.azurebilling = function(context) {
       }
 
       widget.value = '&pound;' + estimatedCost.toFixed(0);
-      widget.subtitle = 'Current: &pound;' + totalCost.toFixed(2) + '<br />Limit: &pound;' + totalCredit + ')';
+      widget.subtitle = 'Current: <b>&pound;' + totalCost.toFixed(2) + '</b><br />Limit: <b>&pound;' + totalCredit + '</b>';
 
       context.res = {
           body: widget,
