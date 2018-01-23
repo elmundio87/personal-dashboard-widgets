@@ -569,6 +569,11 @@ module.exports.azurebilling = function(context) {
 
   let widget = new Widget('Azure Bill Estimate', null, null);
   widget.refresh_timer = 3600;
+  widget.type = 'dial';
+  widget.dial = {
+      'min': 0,
+      'max': totalCredit,
+  };
 
   msRestAzure.loginWithServicePrincipalSecret(
         AppConfig.azure_clientid,
@@ -587,11 +592,7 @@ module.exports.azurebilling = function(context) {
 
       let estimatedCost = (totalCost / daysSinceBillingPeriodStarted) * 30;
 
-      if (estimatedCost > totalCredit) {
-        widget.status = 'critical';
-      }
-
-      widget.value = '&pound;' + estimatedCost.toFixed(0);
+      widget.value = estimatedCost.toFixed(0);
       widget.subtitle = 'Current: <b>&pound;' + totalCost.toFixed(2) + '</b><br />Limit: <b>&pound;' + totalCredit + '</b>';
 
       context.res = {
