@@ -585,8 +585,8 @@ module.exports.azurebilling = function(context) {
 
       let estimatedCost = (totalCost / daysSinceBillingPeriodStarted) * 30;
 
-      widget.value = '£' + totalCost;
-      widget.subtitle = 'Estimate: £' + estimatedCost;
+      widget.value = '&pound;' + totalCost;
+      widget.subtitle = 'Estimate: &pound;' + estimatedCost;
 
       context.res = {
           body: widget,
