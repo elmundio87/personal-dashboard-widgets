@@ -64,7 +64,7 @@ functions:
       - http: true
         x-azure-settings:
           diections: out
-          name: res   
+          name: res
   incidents:
     handler: handler.incidents
     events:
@@ -94,7 +94,7 @@ functions:
       - http: true
         x-azure-settings:
           diections: out
-          name: res      
+          name: res
   ticketsinactive:
     handler: handler.ticketsinactive
     events:
@@ -124,7 +124,7 @@ functions:
       - http: true
         x-azure-settings:
           diections: out
-          name: res  
+          name: res
   widget:
     handler: handler.widget
     events:
@@ -157,6 +157,16 @@ functions:
           name: res
   darksky:
     handler: handler.darksky
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : admin
+      - http: true
+        x-azure-settings:
+          diections: out
+          name: res
+  azurebilling:
+    handler: handler.azurebilling
     events:
       - http: true
         x-azure-settings:

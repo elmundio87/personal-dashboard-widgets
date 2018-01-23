@@ -12,10 +12,12 @@
     "serverless-azure-functions": "^0.4.0"
   },
   "dependencies": {
+    "azure-arm-consumption": "^2.1.0",
     "azure-arm-operationalinsights": "^1.0.0-preview",
     "eslint": "^4.11.0",
     "github": "^9.2.0",
     "jira-client": "^6.4.0",
+    "ms-rest-azure": "^2.5.0",
     "mustache": "^2.3.0",
     "node-fetch": "^1.7.1",
     "request": "^2.81.0"

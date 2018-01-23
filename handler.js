@@ -5,6 +5,8 @@ let JiraApi = require('jira-client');
 let GitHubApi = require('github');
 let fs = require('fs');
 let path = require('path');
+let msRestAzure = require('ms-rest-azure');
+let ConsumptionManagementClient = require('azure-arm-consumption');
 
 Array.prototype.sum = Array.prototype.sum || function() {
   return this.reduce(function(sum, a) {
@@ -27,9 +29,11 @@ let JiraOptions = {
 
 let AppConfig = {
   'pagerdutyAPI': '#{pagerdutyAPI}#',
-  'oms_workspace': '#{oms_workspace}#',
-  'oms_sharedkey': '#{oms_sharedkey}#',
   'darksky_APIKey': '#{darksky_APIKey}#',
+  'azure_subscription': '#{azure_subscription}#',
+  'azure_clientid': '#{azure_clientid}#',
+  'azure_secret': '#{azure_secret}#',
+  'azure_tenantId': '#{azure_tenantId}#',
 };
 
 let PeopleHROptions = {
@@ -555,5 +559,45 @@ module.exports.darksky = function(context) {
             },
         };
         context.done();
+    });
+};
+
+
+module.exports.azurebilling = function(context) {
+  context.log('JavaScript HTTP trigger function processed a request.');
+
+  let widget = new Widget('Azure Billing (MSDN)', null, null);
+
+  msRestAzure.loginWithServicePrincipalSecret(
+        AppConfig.azure_clientid,
+        AppConfig.azure_secret,
+        AppConfig.azure_tenantId
+    ).then((credentials) => {
+    let client = new ConsumptionManagementClient(credentials, AppConfig.azure_subscription);
+    client.usageDetails.list('/subscriptions/' + AppConfig.azure_subscription).then((usageDetails) => {
+      let startDate = usageDetails[0].usageStart;
+      let daysSinceBillingPeriodStarted = dateDiffInDays(startDate, new Date());
+      let totalCost = 0.0;
+
+      usageDetails.forEach((entry) => {
+        totalCost += entry.pretaxCost;
+      });
+
+      let estimatedCost = (totalCost / daysSinceBillingPeriodStarted) * 30;
+
+      widget.value = '£' + totalCost;
+      widget.subtitle = 'Estimate: £' + estimatedCost;
+
+      context.res = {
+          body: widget,
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      };
+      context.done();
+     });
+    }).catch((err) => {
+     console.log('An error ocurred');
+     console.dir(err, {depth: null, colors: true});
     });
 };
