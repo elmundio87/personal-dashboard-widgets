@@ -592,7 +592,7 @@ module.exports.azurebilling = function(context) {
       }
 
       widget.value = '&pound;' + estimatedCost.toFixed(0);
-      widget.subtitle = 'Current: &pound;' + totalCost.toFixed(2) + ' (&pound;' + totalCredit + ')';
+      widget.subtitle = 'Current: &pound;' + totalCost.toFixed(2) + '<br />Limit: &pound;' + totalCredit + ')';
 
       context.res = {
           body: widget,
