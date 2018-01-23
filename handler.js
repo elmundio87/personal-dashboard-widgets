@@ -566,7 +566,8 @@ module.exports.darksky = function(context) {
 module.exports.azurebilling = function(context) {
   context.log('JavaScript HTTP trigger function processed a request.');
 
-  let widget = new Widget('Azure Billing (MSDN)', null, null);
+  let widget = new Widget('Azure Cost (MSDN)', null, null);
+  widget.refresh_timer = 3600;
 
   msRestAzure.loginWithServicePrincipalSecret(
         AppConfig.azure_clientid,
