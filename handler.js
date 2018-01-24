@@ -470,13 +470,15 @@ module.exports.betterworks = function(context) {
           return parseFloat(b.updated) - parseFloat(a.updated);
         });
 
-        lastCheckedIn = dateDiffInDays(epochToDate(unfinishedMilestones[0].updated), new Date());
+        if (unfinishedMilestones.length > 0) {
+          lastCheckedIn = dateDiffInDays(epochToDate(unfinishedMilestones[0].updated), new Date());
 
-        myMilestones.forEach((milestone) => {
-          progress += milestone.measurement.progress;
-        });
+          myMilestones.forEach((milestone) => {
+            progress += milestone.measurement.progress;
+          });
 
-        avgProgress = (progress / myMilestones.length) * 100;
+          avgProgress = (progress / myMilestones.length) * 100;
+        }
       }
 
       widget.value = avgProgress + '%';
