@@ -482,10 +482,12 @@ module.exports.betterworks = function(context) {
       }
 
       widget.value = avgProgress + '%';
-      if (lastCheckedIn == 0) {
-        widget.subtitle = 'You last checked in today!';
-      } else {
-        widget.subtitle = lastCheckedIn + ' days since checkin';
+      if (!isNaN(parseFloat(lastCheckedIn)) && isFinite(lastCheckedIn)) {
+        if (lastCheckedIn == 0) {
+          widget.subtitle = 'You last checked in today!';
+        } else {
+          widget.subtitle = lastCheckedIn + ' days since checkin';
+        }
       }
 
       if (lastCheckedIn >= 3) {
